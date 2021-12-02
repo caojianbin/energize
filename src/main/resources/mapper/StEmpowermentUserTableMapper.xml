@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.showtime.serviceenergize.mapper.StEmpowermentUserTableMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.showtime.serviceenergize.entity.StEmpowermentUserTable">
+        <id column="id" property="id" />
+        <result column="user_id" property="userId" />
+        <result column="user_user_name" property="userUserName" />
+        <result column="user_phone" property="userPhone" />
+        <result column="user_pass_word" property="userPassWord" />
+        <result column="user_salt" property="userSalt" />
+        <result column="user_statu" property="userStatu" />
+        <result column="user_heard_img" property="userHeardImg" />
+        <result column="user_lastLoginTime" property="userLastlogintime" />
+        <result column="create_time" property="createTime" />
+        <result column="create_name" property="createName" />
+        <result column="update_time" property="updateTime" />
+        <result column="update_name" property="updateName" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, user_id, user_user_name, user_phone, user_pass_word, user_salt, user_statu, user_heard_img, user_lastLoginTime, create_time, create_name, update_time, update_name
+    </sql>
+    <select id="selectUserRoleByUserName"
+            resultType="com.showtime.serviceenergize.entity.dto.EmpowermentUserRoleVo">
+               SELECT
+                    seut.user_user_name,
+                    sert.role_name,
+                    sert.role_code,
+                    sert.id
+                FROM
+                 st_empowerment_user_role_table seurt
+                LEFT JOIN st_empowerment_user_table seut ON seurt.user_id = seut.id
+                LEFT JOIN st_empowerment_role_table sert ON seurt.role_id = sert.id
+                WHERE
+                	user_user_name = #{userName}
+    </select>
+    <select id="selectPermissiondListByRole"
+            resultType="com.showtime.serviceenergize.entity.vo.StPermissiondVo">
+                SELECT
+                    seap.permission_code
+                FROM
+                    st_empowerment_admin_role_permission searp
+                LEFT JOIN st_empowerment_role_table sert ON sert.id = searp.role_id
+                LEFT JOIN st_empowerment_admin_permission seap ON seap.id = searp.permission_id
+                WHERE
+                    searp.role_id = #{roleId}
+    </select>
+    <select id="selectUserRoleByUserNames"
+            resultType="com.showtime.serviceenergize.entity.dto.EmpowermentUserRoleVo">
+                SELECT
+                    seut.user_user_name,
+                    sert.role_name,
+                    sert.role_code,
+                    sert.id
+                FROM
+                 st_empowerment_user_role_table seurt
+                LEFT JOIN st_empowerment_user_table seut ON seurt.user_id = seut.id
+                LEFT JOIN st_empowerment_role_table sert ON seurt.role_id = sert.id
+                WHERE
+                	user_user_name = #{userName}
+    </select>
+
+</mapper>

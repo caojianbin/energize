@@ -1,0 +1,131 @@
+#
+serverHost: localhost
+databaseHost: 192.168.10.11
+databaseUserName: root
+databasePwd: 123456
+port: 7000
+#serverHost: 47.103.90.98
+#databaseHost: 47.103.90.98
+#databaseUserName: root
+#databasePwd: showtimeroot.
+
+server:
+  port: 8500
+spring:
+  #  ������������
+  application:
+    name: service-energize
+  #  ��������Դ ʹ��mybatisPlus
+#  datasource:
+#    dynamic:
+#      datasource:
+#        master:
+#          username: ${databaseUserName}
+#          password: ${databasePwd}
+#          url: jdbc:mysql://${databaseHost}:3306/showtime?useUnicode=true&characterEncoding=utf8&serverTimezone=GMT%2B8&useSSL=false
+#          driver-class-name: com.mysql.cj.jdbc.Driver
+#redis配置
+#  redis:
+#    database: 0
+#    host: ${serverHost}
+#    port: 6379
+#    password:
+#    jedis:
+#      pool:
+#        max-idle: 8
+#        min-idle: 0
+#        max-wait: -1ms
+#        max-active: 200
+#    timeout: 10000ms
+swagger:
+  production: false
+  basic:
+    enable: true
+    username: admin
+    password: 123456
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://${serverHost}:${port}/eureka/
+
+  instance:
+    #    ���Լ�IP ע�ᵽ���� Ĭ����������hostname
+    prefer-ip-address: true
+#
+#mybatis-plus:
+#  configuration:
+#    map-underscore-to-camel-case: true
+#    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+#  mapper-locations: classpath*:/mapper/**/*Mapper.xml
+
+
+logging:
+  level:  # 日志级别
+    com.donex.management: DEBUG
+feign:
+  client:
+    config:
+      default:
+        connectTimeout: 10000 # 连接超时时间
+        readTimeout: 10000   # 读超时时间
+        loggerLevel: full # 日志级别
+
+#阿里支付的一些参数
+ali:
+  #应用ID,您的APPID，收款账号既是您的APPID对应支付宝账号
+  #appid
+  #  app_id: 2021001139662801
+  #商户私钥，您的PKCS8格式RSA2私钥
+  #  merchant_private_key: MIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQCsJ0VOSwHq5gnZhnG6a3aGpDnwNM1E+KDiijU65uv+CVPGRyjFswbzY8pdkhmauVZuNExrKqBJ5CDhF1eCzli1Y2E4RxBtMBOuMDiDuF2/4xP25cMhgmOG4Vww8qZ/2gYs7aHz3Im6DuzvGSORYwa1gdmzpLmShuonk3fIaZVqAmn+pPHuFZl/OnY6XlZaT1aF3TE2q0nH7XxlbX9U+sov4nz9GJr6JI1arZ4WcFbxBC5ZwzhSlMXHGk0hW59kzsyeg8gdz7auduFUVr7/LM9YWo6JGaFrjQurTSq9MJERhqBH0nh8+KoBZCzHjvhQh2WwctWLd/Mk5mFLwxAqfPVzAgMBAAECggEAJREjlBMEa65ySnrvO+Ntltn/e5/y3rnl8kEt6uvTvlQFzLh/p+m/QmKnLPSLPMxRNtNd7Ok1sBNFnRGojwqdARlP0o1ClS/33NaXJI1q6ikboFqiZDGt+lnFvuhQP1ETaVMVPuuqX/xcubKg/OnkhOpblJmQN2ODQVg4P1e0iyl1Wq9CIm1OTNjUfSKVOLzOFXfRIIK4eAp+Hbtmx0rlewV2sv6NvHf2cP0CC6J/bQQPX6cEB0MZ7oNDIBhx7mbf4y4MCEcJ9JQHuKAXnawvW2wQQUZTW1qJuBldp6nzlR6Ecc/yRjZKqTwJmoa7TzXCRU8bsSeb7YnfqbfBFZhz6QKBgQDeKDAfE3sBB/3uULHSjO8nbDsdgvRTwjTV7gKeM6EmiVEKLZg8a+JVE3OW7S79G0WGNLKa7ckKG9aFDT+MxxI2H/vpdloAcwRezxFaLB9Sy0SYyCTB2LqIw1nCBzXQNXx+XhritXjTwif9OBJrEDcWEtyMF0LjfJRDyl7DBmoYdwKBgQDGYQNLihUO5KXR/Jg1JsKgApzlTqrObEcrg9EwuWcyAu3w2hwfS2lMj83dkX0XTKNGDo/ZfiM++ABa0lpoYCYF8FX+bs0rauN5T45tvIGFe+p60XknBaTmv1RhvmwwpgLiNfp9oSxnm7pURPjFrGt/N/ewza1y+0mDKWoOTytF5QKBgQClBMMiAk1nKbGU2XoNRUTMStfqhwDISsUGd+KX8w/sWSnKXq3ri9O2kFlXLd2ugxh0pSZacPDZwm3prTqcbq73Z3CvLYuTM9x2NGfWTFoEHRtaRakQGNYOitVcjBCMFX7hOzPLXTNgUKN1s7XyszvH+MC8ivbTlhFn/aXARj5+5wKBgDkSE8aZlPFR6jp89rTjz74EwmpdtVnpYJguNfJUhFGo8hcGSGzgXwy9mjYR8vDPBXHUIqIpXa5x3nhCZ+v7LTUsLTEjYzcIayStNIZxYrmqKozm0nndb9FKXdY42Bsux0mYydV2lrW/4Vz48rC7p7lTuphMs4eOr1ligrZXJFXZAoGBAKt4RwzdRdp+F5fRwhcRMsmepyvNjulAfX3/UdtLRv1oj4DMYO+Plu0fqfB/p/j45yh2SQBYpMGSZocrpN/BkaNeMhwvXNAuTAr0+YaLUapEyQri965aEalQnwpeIH2kC9SOThP/pCfgxWKT/iwny/GJOw4+wkLdy+gKtKb6g12M
+  #支付宝公钥,查看地址：https://openhome.alipay.com/platform/keyManage.htm
+  #  对应APPID下的支付宝公钥。
+  #  alipay_public_key: MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAmyUeQgHFRfSYYsGxnrHEcU39WiyjdexRx2ixnG6bbAfNlECZjCaDyH0JKNObfBMW9daOzJ0O6Afj8Sh4XYjOLBtlFEDT89rdpoyCcPKWW+hRlliuAReGxZIcNsZuXKjIrmbGqPMAXeaTYDeezcMzzp9fZkRjobFZB/WNjEGMxxhEvqSkC+ZtHhERj+dq26/KFBTCmWeZL2w8sMXe0wPmOecEVuzP5JE9am3cDEhoeNDv7uGbSNBZb+/5FR5kicN/xKlvKfm7JX6s+46I11j0yuhbhnvoWMGQ4yaxz/1ZK/BNsPSVR6EOUFKOBmX49YIVO6T56i+PWU0Ci8PJMlj+rQIDAQAB
+  #服务器异步通知页面路径 需http://格式的完整路径，不能加?id=123这类自定义参数，必须外网可以正常访问
+  #  notify_url: https://api.energy.showtimer.cn/ali/pay/notify_url
+  #页面跳转同步通知页面路径 需http://格式的完整路径，不能加?id=123这类自定义参数，必须外网可以正常访问
+  #  return_url: https://api.energy.showtimer.cn/ali/pay/return_url
+  #签名方式
+  #  sign_type: RSA2
+  #字符编码格式
+  #  charset: UTF-8
+  #支付宝网关
+  #  gatewayUrl: https://openapi.alipay.com/gateway.do
+
+
+  #沙箱环境
+  #ali:
+  app_id: 2016101400681351
+  merchant_private_key: MIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQCsJ0VOSwHq5gnZhnG6a3aGpDnwNM1E+KDiijU65uv+CVPGRyjFswbzY8pdkhmauVZuNExrKqBJ5CDhF1eCzli1Y2E4RxBtMBOuMDiDuF2/4xP25cMhgmOG4Vww8qZ/2gYs7aHz3Im6DuzvGSORYwa1gdmzpLmShuonk3fIaZVqAmn+pPHuFZl/OnY6XlZaT1aF3TE2q0nH7XxlbX9U+sov4nz9GJr6JI1arZ4WcFbxBC5ZwzhSlMXHGk0hW59kzsyeg8gdz7auduFUVr7/LM9YWo6JGaFrjQurTSq9MJERhqBH0nh8+KoBZCzHjvhQh2WwctWLd/Mk5mFLwxAqfPVzAgMBAAECggEAJREjlBMEa65ySnrvO+Ntltn/e5/y3rnl8kEt6uvTvlQFzLh/p+m/QmKnLPSLPMxRNtNd7Ok1sBNFnRGojwqdARlP0o1ClS/33NaXJI1q6ikboFqiZDGt+lnFvuhQP1ETaVMVPuuqX/xcubKg/OnkhOpblJmQN2ODQVg4P1e0iyl1Wq9CIm1OTNjUfSKVOLzOFXfRIIK4eAp+Hbtmx0rlewV2sv6NvHf2cP0CC6J/bQQPX6cEB0MZ7oNDIBhx7mbf4y4MCEcJ9JQHuKAXnawvW2wQQUZTW1qJuBldp6nzlR6Ecc/yRjZKqTwJmoa7TzXCRU8bsSeb7YnfqbfBFZhz6QKBgQDeKDAfE3sBB/3uULHSjO8nbDsdgvRTwjTV7gKeM6EmiVEKLZg8a+JVE3OW7S79G0WGNLKa7ckKG9aFDT+MxxI2H/vpdloAcwRezxFaLB9Sy0SYyCTB2LqIw1nCBzXQNXx+XhritXjTwif9OBJrEDcWEtyMF0LjfJRDyl7DBmoYdwKBgQDGYQNLihUO5KXR/Jg1JsKgApzlTqrObEcrg9EwuWcyAu3w2hwfS2lMj83dkX0XTKNGDo/ZfiM++ABa0lpoYCYF8FX+bs0rauN5T45tvIGFe+p60XknBaTmv1RhvmwwpgLiNfp9oSxnm7pURPjFrGt/N/ewza1y+0mDKWoOTytF5QKBgQClBMMiAk1nKbGU2XoNRUTMStfqhwDISsUGd+KX8w/sWSnKXq3ri9O2kFlXLd2ugxh0pSZacPDZwm3prTqcbq73Z3CvLYuTM9x2NGfWTFoEHRtaRakQGNYOitVcjBCMFX7hOzPLXTNgUKN1s7XyszvH+MC8ivbTlhFn/aXARj5+5wKBgDkSE8aZlPFR6jp89rTjz74EwmpdtVnpYJguNfJUhFGo8hcGSGzgXwy9mjYR8vDPBXHUIqIpXa5x3nhCZ+v7LTUsLTEjYzcIayStNIZxYrmqKozm0nndb9FKXdY42Bsux0mYydV2lrW/4Vz48rC7p7lTuphMs4eOr1ligrZXJFXZAoGBAKt4RwzdRdp+F5fRwhcRMsmepyvNjulAfX3/UdtLRv1oj4DMYO+Plu0fqfB/p/j45yh2SQBYpMGSZocrpN/BkaNeMhwvXNAuTAr0+YaLUapEyQri965aEalQnwpeIH2kC9SOThP/pCfgxWKT/iwny/GJOw4+wkLdy+gKtKb6g12M
+  alipay_public_key: MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAp8rgh9WWoZFh0vYhL/s3vLemE8C/ngjWR3Kf0D6L45Z34df8Tk8D2ENkPBAOF4vqpqAuMldAqSBj5fIxDzdySnOLKpXDLw/QysKqAT/vdDZzlW7e5NZ6L6GpYAT4PK3se7o2DoiX1/3M9TIkqwTny9IywUbxHeCPWv417YpYnH4HO4n7UhGx47uLQ0P+B2Ay9Bxreo4tJOVXLUUp4k8ELH2B32WZJzQenFzeKjK9WoNsS1xWfJKYGL135Ux3k8Y0L0GdsB7Y/IBRQClKtb9Uyq5lLxmci2Z6BGbLXS89mt1z2bdM+BM/8/gffqckdhy49Lef/OV2s2wqmr+hcwhw8wIDAQAB
+  notify_url: http://3cd35k.natappfree.cc/ali/pay/notify_url
+  return_url: http://3cd35k.natappfree.cc/ali/pay/return_url
+  sign_type: RSA2
+  charset: UTF-8
+  gatewayurl: https://openapi.alipaydev.com/gateway.do
+
+
+
+
+applet:
+  #微信商户号
+  #微信支付的商户id
+  mch_id: 1547157111
+  #微信支付的商户密钥
+  key: kgPnmTcOs44Fs03bnOtOnFDO4YVpxIY8
+
+  #微信正式账号
+  appid: wxa072d5f5639181a8
+  secret: d5faafd10f9490e8fd87aff9844ecf5c
+  grantType: authorization_code
+  #支付成功后的服务器回调url，这里填Controller里的回调函数地址
+  #notify_url: https://api.energy.showtimer.cn/energize/wx/pay/wxPayNotify
+  notify_url: http://ga8yag.natappfree.cc/energize/wx/pay/wxPayNotify
+
+
+# Token 过期时间
+expireTime: 10
+# Token 在Redis刷新时间,单位秒
+refreshTime: 3600
+# 批量缓冲时间
+batchExpireTime: 2

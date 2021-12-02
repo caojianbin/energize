@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.showtime.serviceenergize.mapper.StEnergizeLogMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.showtime.serviceenergize.entity.StEnergizeLog">
+        <id column="id" property="id" />
+        <result column="log_id" property="logId" />
+        <result column="log_type" property="logType" />
+        <result column="log_title" property="logTitle" />
+        <result column="log_request_uri" property="logRequestUri" />
+        <result column="log_method" property="logMethod" />
+        <result column="log_ip" property="logIp" />
+        <result column="log_params" property="logParams" />
+        <result column="log_exception" property="logException" />
+        <result column="log_timeout" property="logTimeout" />
+        <result column="user_id" property="userId" />
+        <result column="create_name" property="createName" />
+        <result column="create_time" property="createTime" />
+        <result column="update_name" property="updateName" />
+        <result column="update_time" property="updateTime" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        log_id, log_type, log_title, log_request_uri, log_method, log_ip, log_params, log_exception, log_timeout, user_id, create_name, create_time, update_name, update_time, id
+    </sql>
+    <select id="selectEnergizeList" resultType="com.showtime.serviceenergize.entity.vo.StEnergizeLogVo">
+        SELECT
+            log_type,
+            log_title,
+            log_request_uri,
+            log_method,
+            log_ip,
+            log_params,
+            log_exception,
+            log_timeout,
+            user_id,
+            create_time,
+            role_type
+        FROM
+            st_energize_log sel
+        <where>
+            <if test='userName != null and userName != ""'>
+                and user_id LIKE concat(concat('%',#{userName}),'%')
+            </if>
+            <if test='roleType != null and roleType != ""'>
+                and role_type = #{roleType}
+            </if>
+        </where>
+    </select>
+
+</mapper>

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.showtime.serviceenergize.mapper.StEmpowermentAdminMenuMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.showtime.serviceenergize.entity.StEmpowermentAdminMenu">
+        <id column="id" property="id" />
+        <result column="menu_id" property="menuId" />
+        <result column="menu_title" property="menuTitle" />
+        <result column="menu_url" property="menuUrl" />
+        <result column="menu_code" property="menuCode" />
+        <result column="menu_icon" property="menuIcon" />
+        <result column="menu_parent_code" property="menuParentCode" />
+        <result column="create_time" property="createTime" />
+        <result column="create_name" property="createName" />
+        <result column="update_time" property="updateTime" />
+        <result column="update_name" property="updateName" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, menu_id, menu_title, menu_url, menu_code, menu_icon, menu_parent_code, create_time, create_name, update_time, update_name
+    </sql>
+
+</mapper>

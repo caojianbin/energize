@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.showtime.serviceenergize.mapper.StProcodeMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.showtime.serviceenergize.entity.StProcode">
+        <id column="st_proid" property="stProid" />
+        <result column="st_provinceCode" property="stProvincecode" />
+        <result column="st_provinceName" property="stProvincename" />
+        <result column="st_cityCode" property="stCitycode" />
+        <result column="st_cityName" property="stCityname" />
+        <result column="st_areaCode" property="stAreacode" />
+        <result column="st_areaName" property="stAreaname" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        st_proid, st_provinceCode, st_provinceName, st_cityCode, st_cityName, st_areaCode, st_areaName
+    </sql>
+
+</mapper>

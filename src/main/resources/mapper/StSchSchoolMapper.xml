@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.showtime.serviceenergize.mapper.StSchSchoolMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.showtime.serviceenergize.entity.StSchSchool">
+        <id column="sch_id" property="schId" />
+        <result column="sch_name" property="schName" />
+        <result column="sch_spell_character" property="schSpellCharacter" />
+        <result column="favorite_cnt" property="favoriteCnt" />
+        <result column="unlock_cnt" property="unlockCnt" />
+        <result column="visual_sts" property="visualSts" />
+        <result column="sch_logo" property="schLogo" />
+        <result column="sch_bg_img" property="schBgImg" />
+        <result column="sch_desc" property="schDesc" />
+        <result column="sch_card_ct" property="schCardCt" />
+        <result column="sch_addre_type" property="schAddreType" />
+        <result column="unlock_price" property="unlockPrice" />
+        <result column="is_hot" property="isHot" />
+        <result column="sch_order" property="schOrder" />
+        <result column="cus_order" property="cusOrder" />
+        <result column="is_plat" property="isPlat" />
+        <result column="sch_icon" property="schIcon" />
+        <result column="sch_city" property="schCity" />
+        <result column="mony_day" property="monyDay" />
+        <result column="mony_week" property="monyWeek" />
+        <result column="mony_month" property="monyMonth" />
+        <result column="sch_establish_time" property="schEstablishTime" />
+        <result column="st_certification_status" property="stCertificationStatus" />
+        <result column="st_page_view" property="stPageView" />
+        <result column="st_qr_code_share_pictures" property="stQrCodeSharePictures" />
+        <result column="st_uid" property="stUid" />
+        <result column="shc_qr_code" property="shcQrCode" />
+        <result column="sch_is_online" property="schIsOnline" />
+        <result column="sch_weight" property="schWeight" />
+        <result column="sch_admission_code" property="schAdmissionCode" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        sch_id, sch_name, sch_spell_character, favorite_cnt, unlock_cnt, visual_sts, sch_logo, sch_bg_img, sch_desc, sch_card_ct, sch_addre_type, unlock_price, is_hot, sch_order, cus_order, is_plat, sch_icon, sch_city, mony_day, mony_week, mony_month, sch_establish_time, st_certification_status, st_page_view, st_qr_code_share_pictures, st_uid, shc_qr_code, sch_is_online, sch_weight, sch_admission_code
+    </sql>
+    <select id="getSchSchoolList" resultType="com.showtime.serviceenergize.entity.dto.HomeSchoolDto">
+        SELECT DISTINCT
+            sss.sch_id,
+            sss.sch_name,
+            sss.st_page_view,
+            sss.sch_icon,
+            sss.sch_spell_character,
+            sss.favorite_cnt,
+            ssa.school_motto,
+            sss.unlock_cnt,
+            sss.visual_sts,
+            sss.sch_logo,
+            sss.sch_bg_img,
+            sss.sch_desc,
+            sss.sch_card_ct,
+            sss.sch_addre_type,
+            sss.unlock_price,
+            sss.is_hot,
+            sss.sch_order,
+            sss.cus_order,
+            sss.is_plat,
+            sss.sch_is_online,
+            ssa.sa_city,
+            ssa.sa_province
+        FROM
+            st_sch_school sss
+        LEFT JOIN st_sch_area ssa ON sss.sch_id = ssa.sch_id
+        <where>
+            ssa.sa_type = 1
+            <if test='isPlat != null and isPlat != ""'>
+              AND sss.is_plat = #{isPlat}
+            </if>
+        </where>
+        ORDER BY
+            sss.sch_is_online ASC,
+            sss.is_plat DESC,
+            convert(sss.st_page_view, signed) DESC
+        LIMIT #{pageNum},#{pageSize}
+    </select>
+    <select id="selectSchoolCoding"
+            resultType="com.showtime.serviceenergize.entity.dto.StSchoolAdmissionCodeDto">
+       SELECT
+            sch_admission_code
+        FROM
+            st_sch_school
+        WHERE
+        sch_admission_code = #{schAdmissionCode}
+    </select>
+
+</mapper>

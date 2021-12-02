@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.showtime.serviceenergize.mapper.StEnergizeOrderMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.showtime.serviceenergize.entity.StEnergizeOrder">
+        <id column="id" property="id" />
+        <result column="order_id" property="orderId" />
+        <result column="order_reference" property="orderReference" />
+        <result column="ct_id" property="ctId" />
+        <result column="user_number" property="userNumber" />
+        <result column="order_creation_time" property="orderCreationTime" />
+        <result column="order_money" property="orderMoney" />
+        <result column="pay_money" property="payMoney" />
+        <result column="tran_order_num" property="tranOrderNum" />
+        <result column="order_pay_time" property="orderPayTime" />
+        <result column="order_statu" property="orderStatu" />
+        <result column="sch_id" property="schId" />
+        <result column="order_mode" property="orderMode" />
+        <result column="pre_option" property="preOption" />
+        <result column="purchasing_time" property="purchasingTime" />
+        <result column="expiration_time" property="expirationTime" />
+        <result column="create_name" property="createName" />
+        <result column="create_time" property="createTime" />
+        <result column="update_name" property="updateName" />
+        <result column="update_time" property="updateTime" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        order_id, order_reference, ct_id, user_number, order_creation_time, order_money, pay_money, tran_order_num, order_pay_time, order_statu, sch_id, order_mode, pre_option, purchasing_time, expiration_time, create_name, create_time, update_name, update_time, id
+    </sql>
+    <select id="countMoney" resultType="com.showtime.serviceenergize.entity.vo.EnergizeOrderVo">
+            SELECT
+              SUM(pay_money) money
+            FROM
+             st_energize_order
+    </select>
+    <select id="countTisMonthMoeny" resultType="com.showtime.serviceenergize.entity.vo.EnergizeOrderVo">
+
+           SELECT
+              SUM(pay_money) tisMonthMoney
+            FROM
+              st_energize_order  seo
+            WHERE
+              DATE_FORMAT(
+                FROM_UNIXTIME(seo.`order_pay_time` / 1000),
+                '%Y%m'
+              ) = DATE_FORMAT(CURDATE(), '%Y%m')
+
+    </select>
+    <select id="counLastMonthMoeny" resultType="com.showtime.serviceenergize.entity.vo.EnergizeOrderVo">
+            SELECT
+                SUM(pay_money) lastMonthMoney
+            FROM
+                st_energize_order
+            WHERE
+                PERIOD_DIFF(
+                    date_format(now(), '%Y-%m-%d'),
+                    date_format(
+                        FROM_UNIXTIME(order_pay_time / 1000),
+                        '%Y-%m-%d'
+                    )
+                ) = 1
+
+    </select>
+    <select id="selectOrdertListByCondition"
+            resultType="com.showtime.serviceenergize.entity.dto.StEnergizeOrderVo">
+        SELECT
+            sno.tran_order_num,
+            sss.sch_name,
+            sno.pay_money,
+            sno.order_reference,
+            sec.ct_name,
+            sno.user_number,
+            sno.order_pay_time
+        FROM
+            st_energize_order sno
+        LEFT JOIN st_sch_school sss ON sno.sch_id = sss.sch_id
+        LEFT JOIN st_energize_commercial sec ON sec.ct_identification_code = sno.ct_identification_code
+        <where>
+            sno.pay_money IS NOT NULL
+            AND sno.order_statu = 1
+            <if test='ctName != null and ctName != ""'>
+                and sec.ct_name  LIKE concat(concat('%',#{ctName}),'%')
+            </if>
+            <if test='startTime != null and startTime != ""'>
+                AND sno.order_pay_time BETWEEN #{startTime}
+                AND #{endTime}
+            </if>
+        </where>
+    </select>
+
+</mapper>

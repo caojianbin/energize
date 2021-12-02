@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.showtime.serviceenergize.mapper.StEnergizeUserUnlockSchoolMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.showtime.serviceenergize.entity.StEnergizeUserUnlockSchool">
+        <id column="id" property="id" />
+        <result column="seu_id" property="seuId" />
+        <result column="ct_id" property="ctId" />
+        <result column="user_number" property="userNumber" />
+        <result column="sch_id" property="schId" />
+        <result column="seu_start_time" property="seuStartTime" />
+        <result column="seu_end_time" property="seuEndTime" />
+        <result column="create_name" property="createName" />
+        <result column="create_time" property="createTime" />
+        <result column="update_name" property="updateName" />
+        <result column="update_time" property="updateTime" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        seu_id, ct_identification_code, user_number, sch_id, seu_start_time, seu_end_time, create_name, create_time, update_name, update_time, id
+    </sql>
+    <select id="selectUserUnlockSchool"
+            resultType="com.showtime.serviceenergize.entity.StEnergizeUserUnlockSchool">
+        SELECT
+            ct_identification_code,
+            user_number,
+            sch_id,
+            seu_start_time,
+            seu_end_time
+        FROM
+            st_energize_user_unlock_school
+        WHERE
+            user_number = #{userNumber}
+            And ct_identification_code = #{ctIdentificationCode}
+    </select>
+
+</mapper>
